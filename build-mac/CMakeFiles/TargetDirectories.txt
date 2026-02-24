@@ -1,0 +1,3 @@
+/Users/ducthien/C++/build-mac/CMakeFiles/main.dir
+/Users/ducthien/C++/build-mac/CMakeFiles/edit_cache.dir
+/Users/ducthien/C++/build-mac/CMakeFiles/rebuild_cache.dir

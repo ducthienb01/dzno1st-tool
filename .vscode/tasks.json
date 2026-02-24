@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: clang++ build active file",
+            "command": "clang++",  // <-- sửa: dùng clang++ từ PATH (tìm tự động, tốt hơn /usr/bin)
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-Wall", "-Wextra",      
+                "-Wno-everything",// <-- thêm: cảnh báo lỗi code
+                "-I${workspaceFolder}/header",
+                "-I/Users/ducthien/C++/webdriverxx/include",
+                "-isystem/Users/ducthien/C++/",
+                "${workspaceFolder}/src/*.cpp",
+                // "${workspaceFolder}/src/main.cpp",          // ← liệt kê thủ công
+                // "${workspaceFolder}/src/selenium.cpp",
+                // "${workspaceFolder}/src/login.cpp",         // hoặc tên file có RunAccount
+                // "${workspaceFolder}/src/account.cpp",
+                "-o",
+                "${workspaceFolder}/src/main",
+                "-lcurl"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "detail": "Build toàn bộ src/*.cpp và output vào build/main"
+        }
+    ]
+}

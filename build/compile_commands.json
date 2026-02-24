@@ -1,0 +1,38 @@
+[
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/main.cpp.o -c /Users/ducthien/C++/src/main.cpp",
+  "file": "/Users/ducthien/C++/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/golike.cpp.o -c /Users/ducthien/C++/src/golike.cpp",
+  "file": "/Users/ducthien/C++/src/golike.cpp",
+  "output": "CMakeFiles/main.dir/src/golike.cpp.o"
+},
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/instagram.cpp.o -c /Users/ducthien/C++/src/instagram.cpp",
+  "file": "/Users/ducthien/C++/src/instagram.cpp",
+  "output": "CMakeFiles/main.dir/src/instagram.cpp.o"
+},
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/Loadjob.cpp.o -c /Users/ducthien/C++/src/Loadjob.cpp",
+  "file": "/Users/ducthien/C++/src/Loadjob.cpp",
+  "output": "CMakeFiles/main.dir/src/Loadjob.cpp.o"
+},
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/UI.cpp.o -c /Users/ducthien/C++/src/UI.cpp",
+  "file": "/Users/ducthien/C++/src/UI.cpp",
+  "output": "CMakeFiles/main.dir/src/UI.cpp.o"
+},
+{
+  "directory": "/Users/ducthien/C++/build",
+  "command": "/usr/bin/clang++  -I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -g -std=c++17 -arch arm64 -Wno-return-type -Wno-missing-return -Wno-multichar -Wno-char-constant-too-long -Wno-constant-conversion -Wno-unused-value -Wno-multichar-constant -g -O0 -fexceptions -fno-omit-frame-pointer -Wno-duplicate-decl-specifier -o CMakeFiles/main.dir/src/TDS.cpp.o -c /Users/ducthien/C++/src/TDS.cpp",
+  "file": "/Users/ducthien/C++/src/TDS.cpp",
+  "output": "CMakeFiles/main.dir/src/TDS.cpp.o"
+}
+]
