@@ -1,1 +1,1 @@
--I/Users/ducthien/C++/header -I/Users/ducthien/C++/webdriverxx/include -I/Users/ducthien/C++ -isystem "/Users/ducthien/vcpkg/installed/x64-mingw-static/include"
+-I"D:/C++/dzno1st-tool/header" -I"D:/C++/dzno1st-tool/webdriverxx/include" -I"D:/C++/dzno1st-tool" -I"D:/C++/dzno1st-tool/BEFORE" -I"D:/vcpkg/installed/x64-mingw-dynamic/include" -isystem "D:/C++/dzno1st-tool/build-win/vcpkg_installed/x64-mingw-dynamic/include"

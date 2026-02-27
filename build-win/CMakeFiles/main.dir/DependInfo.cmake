@@ -8,12 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/ducthien/C++/src/Loadjob.cpp" "CMakeFiles/main.dir/src/Loadjob.cpp.obj" "gcc" "CMakeFiles/main.dir/src/Loadjob.cpp.obj.d"
-  "/Users/ducthien/C++/src/TDS.cpp" "CMakeFiles/main.dir/src/TDS.cpp.obj" "gcc" "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
-  "/Users/ducthien/C++/src/UI.cpp" "CMakeFiles/main.dir/src/UI.cpp.obj" "gcc" "CMakeFiles/main.dir/src/UI.cpp.obj.d"
-  "/Users/ducthien/C++/src/golike.cpp" "CMakeFiles/main.dir/src/golike.cpp.obj" "gcc" "CMakeFiles/main.dir/src/golike.cpp.obj.d"
-  "/Users/ducthien/C++/src/instagram.cpp" "CMakeFiles/main.dir/src/instagram.cpp.obj" "gcc" "CMakeFiles/main.dir/src/instagram.cpp.obj.d"
-  "/Users/ducthien/C++/src/main.cpp" "CMakeFiles/main.dir/src/main.cpp.obj" "gcc" "CMakeFiles/main.dir/src/main.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/Loadjob.cpp" "CMakeFiles/main.dir/src/Loadjob.cpp.obj" "gcc" "CMakeFiles/main.dir/src/Loadjob.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/TDS.cpp" "CMakeFiles/main.dir/src/TDS.cpp.obj" "gcc" "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/UI.cpp" "CMakeFiles/main.dir/src/UI.cpp.obj" "gcc" "CMakeFiles/main.dir/src/UI.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/golike.cpp" "CMakeFiles/main.dir/src/golike.cpp.obj" "gcc" "CMakeFiles/main.dir/src/golike.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/instagram.cpp" "CMakeFiles/main.dir/src/instagram.cpp.obj" "gcc" "CMakeFiles/main.dir/src/instagram.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/main.cpp" "CMakeFiles/main.dir/src/main.cpp.obj" "gcc" "CMakeFiles/main.dir/src/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

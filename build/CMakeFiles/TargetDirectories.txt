@@ -1,3 +1,3 @@
-/Users/ducthien/C++/build/CMakeFiles/main.dir
-/Users/ducthien/C++/build/CMakeFiles/edit_cache.dir
-/Users/ducthien/C++/build/CMakeFiles/rebuild_cache.dir
+D:/C++/dzno1st-tool/build/CMakeFiles/main.dir
+D:/C++/dzno1st-tool/build/CMakeFiles/edit_cache.dir
+D:/C++/dzno1st-tool/build/CMakeFiles/rebuild_cache.dir

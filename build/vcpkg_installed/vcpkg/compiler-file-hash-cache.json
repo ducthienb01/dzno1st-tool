@@ -1,0 +1,20 @@
+{
+  "D:/Visual studio/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe" : 
+  {
+    "hash" : "6acc12a2b201b4a3cf439948fa07e7b6e3907828",
+    "size" : 682576,
+    "timestamp" : 1769007223
+  },
+  "D:/mingw64/bin/x86_64-w64-mingw32-g++.exe" : 
+  {
+    "hash" : "ebc43165158602be0cd43b70dbfcf54f72d10eec",
+    "size" : 2125326,
+    "timestamp" : 1754814953
+  },
+  "D:/mingw64/bin/x86_64-w64-mingw32-gcc.exe" : 
+  {
+    "hash" : "dd8f3301f6f5e62cc97ebe943be6f066bf66a150",
+    "size" : 2121742,
+    "timestamp" : 1754814953
+  }
+}

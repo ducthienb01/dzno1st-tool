@@ -1,0 +1,20 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "compilerPath": "D:/mingw64/bin/g++.exe",
+            "intelliSenseMode": "windows-gcc-x64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/header",
+                "${workspaceFolder}/webdriverxx/include",
+                "D:/vcpkg/installed/x64-mingw-dynamic/include"   // ← thêm dòng này (đường dẫn vcpkg của bạn)
+                // Nếu vcpkg nằm trong project: "D:/C++/dzno1st-tool/vcpkg/installed/x64-mingw-dynamic/include"
+            ],
+            "defines": [],
+            "cppStandard": "c++17",
+            "configurationProvider": "ms-vscode.cmake-tools"   // nếu dùng CMake Tools
+        }
+    ],
+    "version": 4
+}

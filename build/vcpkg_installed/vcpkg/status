@@ -1,0 +1,55 @@
+Package: vcpkg-cmake
+Version: 2024-04-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 35339ad082dba2ce6c24df178e46d63863e8f7f8246ff11875d5c624c18ff364
+Status: install ok installed
+
+Package: zlib
+Version: 1.3.1
+Depends: vcpkg-cmake:x64-windows
+Architecture: x64-mingw-dynamic
+Multi-Arch: same
+Abi: fcc9aad5f12b9f42daed82da2f426ebeba7c8ea26e514baae8c555b622a212ff
+Description: A compression library
+Status: install ok installed
+
+Package: vcpkg-cmake-config
+Version: 2024-05-23
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 2e78caf6686bc7ebaf8fd86ba2052acfda7b9fe030a37a0802855e286204866d
+Status: install ok installed
+
+Package: curl
+Version: 8.18.0
+Port-Version: 1
+Depends: vcpkg-cmake:x64-windows, vcpkg-cmake-config:x64-windows, zlib
+Architecture: x64-mingw-dynamic
+Multi-Arch: same
+Abi: cb5c56f1b8bf49a584dee2a069b5bfc1746034ea8cf51da9d26998ee9a2530e5
+Description: A library for transferring data with URLs
+Default-Features: non-http, ssl
+Status: install ok installed
+
+Package: curl
+Feature: non-http
+Architecture: x64-mingw-dynamic
+Multi-Arch: same
+Description: Enables protocols beyond HTTP/HTTPS/HTTP2/HTTP3
+Status: install ok installed
+
+Package: curl
+Feature: ssl
+Architecture: x64-mingw-dynamic
+Multi-Arch: same
+Description: Default SSL / TLS implementation.
+Status: install ok installed
+
+Package: curl
+Feature: sspi
+Architecture: x64-mingw-dynamic
+Multi-Arch: same
+Description: SSPI support
+Status: install ok installed
+

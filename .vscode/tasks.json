@@ -1,25 +1,50 @@
 {
     "version": "2.0.0",
     "tasks": [
+        // ── Task chung (dùng khi không cần override đặc biệt) ──
         {
             "type": "cppbuild",
-            "label": "C/C++: clang++ build active file",
-            "command": "clang++",  // <-- sửa: dùng clang++ từ PATH (tìm tự động, tốt hơn /usr/bin)
+            "label": "Build active project (Generic)",
+            "command": "${command:pickCompiler}",
             "args": [
                 "-std=c++17",
                 "-g",
-                "-Wall", "-Wextra",      
-                "-Wno-everything",// <-- thêm: cảnh báo lỗi code
-                "-I${workspaceFolder}/header",
-                "-I/Users/ducthien/C++/webdriverxx/include",
-                "-isystem/Users/ducthien/C++/",
+                "-Wall",
+                "-Wextra",
                 "${workspaceFolder}/src/*.cpp",
-                // "${workspaceFolder}/src/main.cpp",          // ← liệt kê thủ công
-                // "${workspaceFolder}/src/selenium.cpp",
-                // "${workspaceFolder}/src/login.cpp",         // hoặc tên file có RunAccount
-                // "${workspaceFolder}/src/account.cpp",
                 "-o",
-                "${workspaceFolder}/src/main",
+                "${workspaceFolder}/build/main"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
+        },
+
+        // ── Windows (MinGW + vcpkg + curl) ──
+        {
+            "type": "cppbuild",
+            "label": "Build active project (Windows MinGW)",
+            "command": "D:\\mingw64\\bin\\g++.exe",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-I${workspaceFolder}/header",
+                "-I${workspaceFolder}/webdriverxx/include",
+                "-I${workspaceFolder}",
+                "-ID:/C++/dzno1st-tool/vcpkg/installed/x64-mingw-dynamic/include",
+                "${workspaceFolder}/src/*.cpp",
+                "-o",
+                "${workspaceFolder}\\build\\main.exe",
+                "-LD:/C++/dzno1st-tool/vcpkg/installed/x64-mingw-dynamic/lib",
                 "-lcurl"
             ],
             "options": {
@@ -28,14 +53,43 @@
             "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": true   // Nếu bạn dùng Windows hầu hết thời gian → để isDefault
             },
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
                 "clear": true
+            }
+        },
+
+        // ── macOS (clang++ + brew curl) ──
+        {
+            "type": "cppbuild",
+            "label": "Build active project (macOS)",
+            "command": "clang++",
+            "args": [
+                "-std=c++17",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-I${workspaceFolder}/header",
+                "-I/Users/ducthien/C++/webdriverxx/include",
+                "-I${workspaceFolder}",
+                "${workspaceFolder}/src/*.cpp",
+                "-o",
+                "${workspaceFolder}/build/main",
+                "-lcurl"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
             },
-            "detail": "Build toàn bộ src/*.cpp và output vào build/main"
+            "problemMatcher": ["$gcc"],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            }
         }
     ]
 }

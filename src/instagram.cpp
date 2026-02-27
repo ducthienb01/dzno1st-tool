@@ -1,6 +1,6 @@
-#include "/Users/ducthien/C++/header/instagram.h"
+#include "../header/instagram.h"
 #include <iostream>
-#include "/Users/ducthien/C++/header/json.hpp"
+#include "../header/json.hpp"
 #include <curl/curl.h>
 #include <regex>
 using json = nlohmann::json;
