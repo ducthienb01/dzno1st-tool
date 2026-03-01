@@ -1,35 +1,29 @@
 cmake_minimum_required(VERSION 3.15)
 project(SeleniumAuto LANGUAGES CXX)
-
+if(POLICY CMP0003)
+    cmake_policy(SET CMP0003 NEW)
+endif()
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Tắt warning cho Clang (macOS/Linux clang) - phần này ok ở đầu
+# Tắt warning Clang nếu cần (giữ nguyên)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(
-        -Wno-return-type
-        -Wno-missing-return
-        -Wno-multichar
-        -Wno-char-constant-too-long
-        -Wno-constant-conversion
-        -Wno-unused-value
-        -Wno-multichar-constant
+        -Wno-return-type -Wno-missing-return -Wno-multichar
+        -Wno-char-constant-too-long -Wno-constant-conversion
+        -Wno-unused-value -Wno-multichar-constant
         -Wno-duplicate-decl-specifier
     )
 endif()
 
-# Tìm CURL (ưu tiên CONFIG cho vcpkg)
-find_package(CURL CONFIG QUIET)
-if(NOT CURL_FOUND)
-    find_package(CURL REQUIRED)
-endif()
+# CURL: Dùng CONFIG REQUIRED + vcpkg sẽ tự tìm (nếu toolchain set)
+find_package(CURL CONFIG REQUIRED)
 
 if(NOT CURL_FOUND)
-    message(FATAL_ERROR "libcurl not found. Kiểm tra toolchain vcpkg và vcpkg.json.")
+    message(FATAL_ERROR "libcurl not found. Install via vcpkg: vcpkg install curl:x64-mingw-dynamic")
 endif()
 
-# Định nghĩa target trước (quan trọng!)
 add_executable(main
     src/main.cpp
     src/golike.cpp
@@ -39,97 +33,62 @@ add_executable(main
     src/TDS.cpp
 )
 
-# Bây giờ mới cấu hình target (include, compile options, link)
+# Include: Chỉ giữ project-specific (vcpkg tự handle CURL include)
 target_include_directories(main PRIVATE
-    "D:/vcpkg/installed/x64-mingw-dynamic/include"
     ${CMAKE_CURRENT_SOURCE_DIR}/header
     ${CMAKE_CURRENT_SOURCE_DIR}/webdriverxx/include
     ${CMAKE_CURRENT_SOURCE_DIR}
-    BEFORE
-)
-
-# (Phần include lặp lại - bạn có thể xóa 1 cái nếu muốn sạch sẽ)
-target_include_directories(main PRIVATE
-    "D:/vcpkg/installed/x64-mingw-dynamic/include"
 )
 
 target_compile_options(main PRIVATE
-    -g
-    -O0
-    -fexceptions
-    -fno-omit-frame-pointer
+    -g -O0 -fexceptions -fno-omit-frame-pointer
+    # Uncomment nếu muốn warning: -Wall -Wextra
 )
 
 target_link_libraries(main PRIVATE CURL::libcurl)
 
-if(WIN32 OR CMAKE_SYSTEM_NAME STREQUAL "Windows")
-    target_link_libraries(main PRIVATE bcrypt)
+if(WIN32)
+    target_link_libraries(main PRIVATE bcrypt ws2_32)  # Thêm ws2_32 cho socket nếu curl cần
 endif()
 
-# Nếu muốn tắt hết warning tạm thời (chỉ dùng tạm)
-# target_compile_options(main PRIVATE -w)
-
-# ==================== TỰ ĐỘNG COPY DLL SAU KHI BUILD (CHO WINDOWS/MINGW) ====================
+# AUTO COPY DLL (cải thiện detect MinGW bin)
 if(WIN32)
-    message(STATUS "Thiết lập tự động copy DLL cho MinGW dynamic...")
+    message(STATUS "Auto-copy DLL setup for MinGW...")
 
-    # 1. Copy libcurl.dll từ vcpkg (tự động lấy đường dẫn từ target CURL)
-    get_target_property(CURL_DLL_LOCATION CURL::libcurl IMPORTED_LOCATION_RELEASE)
-    if(NOT CURL_DLL_LOCATION)
-        get_target_property(CURL_DLL_LOCATION CURL::libcurl IMPORTED_LOCATION)
+    # Copy libcurl.dll từ vcpkg
+    get_target_property(CURL_DLL CURL::libcurl IMPORTED_LOCATION_RELEASE)
+    if(NOT CURL_DLL)
+        get_target_property(CURL_DLL CURL::libcurl IMPORTED_LOCATION)
     endif()
-
-    if(CURL_DLL_LOCATION)
+    if(CURL_DLL)
         add_custom_command(TARGET main POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${CURL_DLL_LOCATION}"
-                $<TARGET_FILE_DIR:main>
-            COMMENT "Copy libcurl.dll từ vcpkg"
+            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CURL_DLL}" $<TARGET_FILE_DIR:main>
+            COMMENT "Copy libcurl.dll"
         )
     else()
-        message(WARNING "Không tìm thấy libcurl.dll từ vcpkg. Copy thủ công nhé!")
+        message(WARNING "Không tìm CURL DLL. Copy thủ công nếu exe lỗi.")
     endif()
 
-    # 2. Copy 3 DLL runtime MinGW quan trọng nhất
-    # THAY ĐƯỜNG DẪN NÀY THEO MÁY BẠN (kiểm tra bằng explorer)
-    # Thường là: C:/mingw64/bin hoặc C:/msys64/mingw64/bin nếu dùng MSYS2
-    set(MINGW_BIN "D:/mingw64/bin")  # <-- SỬA ĐƯỜNG DẪN NÀY CHO ĐÚNG!!!
+    # Detect MinGW bin từ compiler path (tự động, không hardcode)
+    get_filename_component(MINGW_BIN "${CMAKE_CXX_COMPILER}" DIRECTORY)
 
-    set(MINGW_DLLS
-        libgcc_s_seh-1.dll
-        libstdc++-6.dll
-        libwinpthread-1.dll
-    )
+    set(MINGW_DLLS libgcc_s_seh-1.dll libstdc++-6.dll libwinpthread-1.dll)
 
     foreach(DLL ${MINGW_DLLS})
-        add_custom_command(TARGET main POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                "${MINGW_BIN}/${DLL}"
-                $<TARGET_FILE_DIR:main>
-            COMMENT "Copy MinGW runtime: ${DLL}"
-        )
+        set(DLL_PATH "${MINGW_BIN}/${DLL}")
+        if(EXISTS "${DLL_PATH}")
+            add_custom_command(TARGET main POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${DLL_PATH}" $<TARGET_FILE_DIR:main>
+                COMMENT "Copy ${DLL}"
+            )
+        else()
+            message(WARNING "Không tìm ${DLL} tại ${DLL_PATH}. Kiểm tra MinGW.")
+        endif()
     endforeach()
 
-    # 3. Nếu curl dùng OpenSSL/zlib (thường có), thêm copy nếu thiếu (kiểm tra bằng Dependencies tool sau)
-    # Uncomment nếu cần:
-    # add_custom_command(TARGET main POST_BUILD
-    #     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    #         "D:/vcpkg/installed/x64-mingw-dynamic/bin/libssl-3.dll"   # hoặc libssl-1_1.dll tùy version
-    #         $<TARGET_FILE_DIR:main>
-    #     COMMENT "Copy libssl.dll (nếu curl dùng OpenSSL)"
-    # )
-    # add_custom_command(TARGET main POST_BUILD
-    #     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    #         "D:/vcpkg/installed/x64-mingw-dynamic/bin/libcrypto-3.dll"
-    #         $<TARGET_FILE_DIR:main>
-    #     COMMENT "Copy libcrypto.dll"
-    # )
-    # add_custom_command(TARGET main POST_BUILD
-    #     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    #         "D:/vcpkg/installed/x64-mingw-dynamic/bin/zlib1.dll"
-    #         $<TARGET_FILE_DIR:main>
-    #     COMMENT "Copy zlib1.dll (nếu cần)"
-    # )
-
-    message(STATUS "Auto-copy DLL setup hoàn tất. Build Release để deploy.")
+    # Nếu thiếu libssl/libcrypto/zlib → install openssl qua vcpkg và uncomment copy
+    # Ví dụ:
+    # add_custom_command(TARGET main POST_BUILD COMMAND ... "libssl-3.dll" ...)
 endif()
+
+message(STATUS "CMake ready. Build Release cho exe portable.")

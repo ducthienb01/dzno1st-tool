@@ -6,8 +6,11 @@
 #include "./header/loadjob.h"
 #include "./header/UI.h"
 #include "./header/TDS.h"
+#include <windows.h>
 int main() {
   curl_global_init(CURL_GLOBAL_ALL);
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
   std::string authorization;
   show_authorization_input(authorization);
   Golike g(authorization);
