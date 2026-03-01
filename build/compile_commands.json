@@ -1,37 +1,37 @@
 [
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\main.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\main.cpp",
   "file": "D:/C++/dzno1st-tool/src/main.cpp",
   "output": "CMakeFiles/main.dir/src/main.cpp.obj"
 },
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\golike.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\golike.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\golike.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\golike.cpp",
   "file": "D:/C++/dzno1st-tool/src/golike.cpp",
   "output": "CMakeFiles/main.dir/src/golike.cpp.obj"
 },
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\instagram.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\instagram.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\instagram.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\instagram.cpp",
   "file": "D:/C++/dzno1st-tool/src/instagram.cpp",
   "output": "CMakeFiles/main.dir/src/instagram.cpp.obj"
 },
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\Loadjob.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\Loadjob.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\Loadjob.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\Loadjob.cpp",
   "file": "D:/C++/dzno1st-tool/src/Loadjob.cpp",
   "output": "CMakeFiles/main.dir/src/Loadjob.cpp.obj"
 },
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\UI.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\UI.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\UI.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\UI.cpp",
   "file": "D:/C++/dzno1st-tool/src/UI.cpp",
   "output": "CMakeFiles/main.dir/src/UI.cpp.obj"
 },
 {
   "directory": "D:/C++/dzno1st-tool/build",
-  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\TDS.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\TDS.cpp",
+  "command": "D:\\mingw64\\bin\\c++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer -o CMakeFiles\\main.dir\\src\\TDS.cpp.obj -c D:\\C++\\dzno1st-tool\\src\\TDS.cpp",
   "file": "D:/C++/dzno1st-tool/src/TDS.cpp",
   "output": "CMakeFiles/main.dir/src/TDS.cpp.obj"
 }

@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = @CMakeFiles/main.dir/includes_CXX.rsp
 
-CXX_FLAGS = -g -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer
+CXX_FLAGS = -g -std=c++17 -std=c++17 -g -O0 -fexceptions -fno-omit-frame-pointer
 

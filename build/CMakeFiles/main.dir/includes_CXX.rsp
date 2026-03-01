@@ -1,1 +1,1 @@
--I"D:/vcpkg/installed/x64-mingw-dynamic/include" -I"D:/C++/dzno1st-tool/header" -I"D:/C++/dzno1st-tool/webdriverxx/include" -I"D:/C++/dzno1st-tool" -I"D:/C++/dzno1st-tool/BEFORE" -isystem "D:/C++/dzno1st-tool/build/vcpkg_installed/x64-mingw-dynamic/include"
+-I"D:/C++/dzno1st-tool/header" -I"D:/C++/dzno1st-tool/webdriverxx/include" -I"D:/C++/dzno1st-tool" -isystem "D:/C++/dzno1st-tool/build/vcpkg_installed/x64-windows/include"

@@ -4,9 +4,9 @@ if(POLICY CMP0003)
     cmake_policy(SET CMP0003 NEW)
 endif()
 set(CMAKE_CXX_STANDARD 17)
+add_compile_options(-std=c++17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 # Tắt warning Clang nếu cần (giữ nguyên)
 if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(
@@ -44,7 +44,7 @@ target_compile_options(main PRIVATE
     -g -O0 -fexceptions -fno-omit-frame-pointer
     # Uncomment nếu muốn warning: -Wall -Wextra
 )
-
+target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE CURL::libcurl)
 
 if(WIN32)

@@ -2,26 +2,30 @@
 #include "../header/adb.h"
 #include <cstdio>
 #include <sstream>
-ADB::ADB(const std::string& devices) : devices(devices) {};
-std::string ADB::ADB_MODE(const std::string& cmd) {
-    std::string full_cmd = "adb " + cmd;
-    FILE* pipe = _popen(full_cmd.c_str(), "r");
-    if (!pipe) {
-        std::cerr << "popen() failed! Command: " << full_cmd << std::endl;
-        return "";
-    }
-    std::string result;
-    char buffer[256];
-    while(fgets(buffer,sizeof(buffer),pipe)!= nullptr) {
-      result += buffer;
-    }
-    _pclose(pipe);
-    return result;
+#include <utility>
+ADB::ADB(const std::string& devices) : devices(devices) {}
+std::pair<std::string , int> ADB::ADB_MODE(const std::string& cmd) {
+  std::string full_cmd = "adb " + cmd + " 2>&1";
+  FILE* pipe = _popen(full_cmd.c_str(), "r");
+  if (!pipe) {
+    std::cerr << "popen() failed! Command: " << full_cmd << std::endl;
+    return {"popen failed",-1};
+  }
+  std::string result;
+  char buffer[256];
+  while(fgets(buffer,sizeof(buffer),pipe)!= nullptr) {
+    result += buffer;
+  }
+  int exit_code = _pclose(pipe);
+  return {result,exit_code};
 }
 std::vector<std::string> ADB::ADB_DEVICES() {
-    std::string output = ADB_MODE("devices");
-    std::istringstream iss(output);
-    std::vector<std::string> result;
+    auto [adb_output,exit_code] = ADB_MODE("devices");
+    if (exit_code != 0) {
+        return {};
+    }
+    std::istringstream iss(adb_output);
+    std::vector<std::string> devices_list;
     std::string line;
     bool started = false;
     while(std::getline(iss,line)) {
@@ -37,25 +41,23 @@ std::vector<std::string> ADB::ADB_DEVICES() {
 
             serial.erase(0, serial.find_first_not_of(" \t"));  // trim left
             serial.erase(serial.find_last_not_of(" \t") + 1);  // trim right
-            if (status.find("device") != std::string::npos) {
-                if (!serial.empty()) {
-                    result.push_back(serial);
-                }
-            }
+            if (status == "device" && !serial.empty()) {
+            devices_list.push_back(serial);
+          }
         }
     }
-  return result;
+  return devices_list;
 }
-std::string ADB::ADB_CLICK(const int& x,const int& y) {
+int ADB::ADB_CLICK(const int& x,const int& y) {
   std::ostringstream click;
   click << "-s " << devices << " shell input tap " << x << " " << y;
-  std::string result = ADB_MODE(click.str());
-  return result;
+  auto [result,exit_code] = ADB_MODE(click.str());
+  return exit_code;
 }
 std::string ADB::ADB_SWIPE(const int& x1 , const int& y1 , const int& x2 , const int& y2) {
   std::ostringstream iss;
   iss << "-s " << devices << " shell input swipe " << x1 << " " << y1 << " " << x2 << " " << y2;
-  std::string result = ADB_MODE(iss.str());
+  auto [result,exit_code] = ADB_MODE(iss.str());
   return result;
 }
 std::string ADB::ADB_TEXT(const std::string& text) {
@@ -64,9 +66,23 @@ std::string ADB::ADB_TEXT(const std::string& text) {
   std::string result = ADB_MODE(input.str());
   return result;
 }
-std::string ADB::ADB_KEY(const std::string& key) {
+void ADB::ADB_KEY(const std::string& key) {
   std::ostringstream out;
   out << "-s " << devices << " shell input keyevent " << key;
   std::string result = ADB_MODE(out.str());
-  return result;
+}
+std::string ADB::ADB_DUMP() {
+  std::string shell = "-s " + devices + " shell uiautomator dump /sdcard/my_ui_dump.xml";
+  std::string pull = "-s " + devices + " pull /sdcard/my_ui_dump.xml .";
+  std::string result = ADB_MODE(shell);
+  if (result.find("UI hierarchy dumped") == std::string::npos && result.find("Success") == std::string::npos) {
+    std::cerr << "Dump thất bại: " << result << std::endl;
+    return "";
+  }
+  std::string result2 = ADB_MODE(pull);
+  if (result2.find("file pulled") == std::string::npos) {
+      std::cerr << "Pull thất bại: " << result2 << std::endl;
+      return "";
+    }
+  return result2;
 }

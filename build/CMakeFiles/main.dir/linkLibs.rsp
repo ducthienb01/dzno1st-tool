@@ -1,1 +1,1 @@
- "vcpkg_installed/x64-mingw-dynamic/debug/lib/libcurl-d.dll.a" -lbcrypt -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
+ "vcpkg_installed/x64-windows/debug/lib/libcurl-d.lib" -lbcrypt -lws2_32 -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 
