@@ -31,6 +31,7 @@ add_executable(main
     src/Loadjob.cpp
     src/UI.cpp
     src/TDS.cpp
+    src/adb.cpp
 )
 
 # Include: Chỉ giữ project-specific (vcpkg tự handle CURL include)

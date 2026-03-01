@@ -1,0 +1,5 @@
+CompileFlags:
+  Add:
+    - --std=c++17
+    - --target=x86_64-w64-mingw32   # target MinGW chuẩn
+    - -Wno-c++17-extensions

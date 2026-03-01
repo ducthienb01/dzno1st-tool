@@ -161,6 +161,21 @@ CMakeFiles/main.dir/src/TDS.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/TDS.cpp.s"
 	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\C++\dzno1st-tool\src\TDS.cpp -o CMakeFiles\main.dir\src\TDS.cpp.s
 
+CMakeFiles/main.dir/src/adb.cpp.obj: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/adb.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
+CMakeFiles/main.dir/src/adb.cpp.obj: D:/C++/dzno1st-tool/src/adb.cpp
+CMakeFiles/main.dir/src/adb.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/main.dir/src/adb.cpp.obj"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/adb.cpp.obj -MF CMakeFiles\main.dir\src\adb.cpp.obj.d -o CMakeFiles\main.dir\src\adb.cpp.obj -c D:\C++\dzno1st-tool\src\adb.cpp
+
+CMakeFiles/main.dir/src/adb.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/adb.cpp.i"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\C++\dzno1st-tool\src\adb.cpp > CMakeFiles\main.dir\src\adb.cpp.i
+
+CMakeFiles/main.dir/src/adb.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/adb.cpp.s"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\C++\dzno1st-tool\src\adb.cpp -o CMakeFiles\main.dir\src\adb.cpp.s
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/main.cpp.obj" \
@@ -168,7 +183,8 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/src/instagram.cpp.obj" \
 "CMakeFiles/main.dir/src/Loadjob.cpp.obj" \
 "CMakeFiles/main.dir/src/UI.cpp.obj" \
-"CMakeFiles/main.dir/src/TDS.cpp.obj"
+"CMakeFiles/main.dir/src/TDS.cpp.obj" \
+"CMakeFiles/main.dir/src/adb.cpp.obj"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
@@ -179,12 +195,13 @@ main.exe: CMakeFiles/main.dir/src/instagram.cpp.obj
 main.exe: CMakeFiles/main.dir/src/Loadjob.cpp.obj
 main.exe: CMakeFiles/main.dir/src/UI.cpp.obj
 main.exe: CMakeFiles/main.dir/src/TDS.cpp.obj
+main.exe: CMakeFiles/main.dir/src/adb.cpp.obj
 main.exe: CMakeFiles/main.dir/build.make
 main.exe: vcpkg_installed/x64-windows/debug/lib/libcurl-d.lib
 main.exe: CMakeFiles/main.dir/linkLibs.rsp
 main.exe: CMakeFiles/main.dir/objects1.rsp
 main.exe: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable main.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable main.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\main.dir\link.txt --verbose=$(VERBOSE)
 	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/C++/dzno1st-tool/build/main.exe -installedDir D:/C++/dzno1st-tool/build/vcpkg_installed/x64-windows/debug/bin -OutVariable out
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy libcurl.dll"

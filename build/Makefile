@@ -200,6 +200,30 @@ src/UI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/UI.cpp.s
 .PHONY : src/UI.cpp.s
 
+src/adb.obj: src/adb.cpp.obj
+.PHONY : src/adb.obj
+
+# target to build an object file
+src/adb.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/adb.cpp.obj
+.PHONY : src/adb.cpp.obj
+
+src/adb.i: src/adb.cpp.i
+.PHONY : src/adb.i
+
+# target to preprocess a source file
+src/adb.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/adb.cpp.i
+.PHONY : src/adb.cpp.i
+
+src/adb.s: src/adb.cpp.s
+.PHONY : src/adb.s
+
+# target to generate assembly for a file
+src/adb.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/adb.cpp.s
+.PHONY : src/adb.cpp.s
+
 src/golike.obj: src/golike.cpp.obj
 .PHONY : src/golike.obj
 
@@ -290,6 +314,9 @@ help:
 	@echo ... src/UI.obj
 	@echo ... src/UI.i
 	@echo ... src/UI.s
+	@echo ... src/adb.obj
+	@echo ... src/adb.i
+	@echo ... src/adb.s
 	@echo ... src/golike.obj
 	@echo ... src/golike.i
 	@echo ... src/golike.s

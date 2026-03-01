@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/C++/dzno1st-tool/src/Loadjob.cpp" "CMakeFiles/main.dir/src/Loadjob.cpp.obj" "gcc" "CMakeFiles/main.dir/src/Loadjob.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/TDS.cpp" "CMakeFiles/main.dir/src/TDS.cpp.obj" "gcc" "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/UI.cpp" "CMakeFiles/main.dir/src/UI.cpp.obj" "gcc" "CMakeFiles/main.dir/src/UI.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/adb.cpp" "CMakeFiles/main.dir/src/adb.cpp.obj" "gcc" "CMakeFiles/main.dir/src/adb.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/golike.cpp" "CMakeFiles/main.dir/src/golike.cpp.obj" "gcc" "CMakeFiles/main.dir/src/golike.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/instagram.cpp" "CMakeFiles/main.dir/src/instagram.cpp.obj" "gcc" "CMakeFiles/main.dir/src/instagram.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/main.cpp" "CMakeFiles/main.dir/src/main.cpp.obj" "gcc" "CMakeFiles/main.dir/src/main.cpp.obj.d"

@@ -11,9 +11,9 @@ class ADB {
      std::pair<std::string, int> ADB_MODE(const std::string& cmd);
      std::vector<std::string> ADB_DEVICES();
      int ADB_CLICK(const int& x, const int& y);
-     std::string ADB_SWIPE(const int& x1 , const int& y1 , const int& x2 , const int& y2);
-     std::string ADB_TEXT(const std::string& text);
-     void ADB_KEY(const std::string& key);
-     std::string ADB_DUMP();
+     int ADB_SWIPE(const int& x1 , const int& y1 , const int& x2 , const int& y2);
+     int ADB_TEXT(const std::string& text);
+     int ADB_KEY(const std::string& key);
+     int ADB_DUMP();
 };
 #endif

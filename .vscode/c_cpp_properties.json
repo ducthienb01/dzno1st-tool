@@ -13,7 +13,7 @@
             ],
             "defines": [],
             "cppStandard": "c++17",
-            "configurationProvider": "ms-vscode.cmake-tools"   // nếu dùng CMake Tools
+            "configurationProvider": "ms-vscode.cmake-tools"  // nếu dùng CMake Tools
         }
     ],
     "version": 4

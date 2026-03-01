@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
   "CMakeFiles/main.dir/src/UI.cpp.obj"
   "CMakeFiles/main.dir/src/UI.cpp.obj.d"
+  "CMakeFiles/main.dir/src/adb.cpp.obj"
+  "CMakeFiles/main.dir/src/adb.cpp.obj.d"
   "CMakeFiles/main.dir/src/golike.cpp.obj"
   "CMakeFiles/main.dir/src/golike.cpp.obj.d"
   "CMakeFiles/main.dir/src/instagram.cpp.obj"

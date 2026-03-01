@@ -20,10 +20,12 @@ std::pair<std::string , int> ADB::ADB_MODE(const std::string& cmd) {
   return {result,exit_code};
 }
 std::vector<std::string> ADB::ADB_DEVICES() {
-    auto [adb_output,exit_code] = ADB_MODE("devices");
-    if (exit_code != 0) {
-        return {};
-    }
+  std::pair<std::string, int> res = ADB_MODE("devices");
+    std::string adb_output = res.first;
+    int exit_code   = res.second;
+  if (exit_code != 0) {
+    return {};
+  }
     std::istringstream iss(adb_output);
     std::vector<std::string> devices_list;
     std::string line;
@@ -51,38 +53,43 @@ std::vector<std::string> ADB::ADB_DEVICES() {
 int ADB::ADB_CLICK(const int& x,const int& y) {
   std::ostringstream click;
   click << "-s " << devices << " shell input tap " << x << " " << y;
-  auto [result,exit_code] = ADB_MODE(click.str());
-  return exit_code;
+  auto res = ADB_MODE(click.str());
+  return res.second;
 }
-std::string ADB::ADB_SWIPE(const int& x1 , const int& y1 , const int& x2 , const int& y2) {
+int ADB::ADB_SWIPE(const int& x1 , const int& y1 , const int& x2 , const int& y2) {
   std::ostringstream iss;
   iss << "-s " << devices << " shell input swipe " << x1 << " " << y1 << " " << x2 << " " << y2;
-  auto [result,exit_code] = ADB_MODE(iss.str());
-  return result;
+  auto res = ADB_MODE(iss.str());
+  return res.second;
 }
-std::string ADB::ADB_TEXT(const std::string& text) {
+int ADB::ADB_TEXT(const std::string& text) {
   std::ostringstream input;
   input << "-s " << devices << " shell input text " << text;
-  std::string result = ADB_MODE(input.str());
-  return result;
+  auto res = ADB_MODE(input.str());
+  return res.second;
 }
-void ADB::ADB_KEY(const std::string& key) {
+int ADB::ADB_KEY(const std::string& key) {
   std::ostringstream out;
   out << "-s " << devices << " shell input keyevent " << key;
-  std::string result = ADB_MODE(out.str());
+  auto res = ADB_MODE(out.str());
+  return res.second;
 }
-std::string ADB::ADB_DUMP() {
+int ADB::ADB_DUMP() {
   std::string shell = "-s " + devices + " shell uiautomator dump /sdcard/my_ui_dump.xml";
-  std::string pull = "-s " + devices + " pull /sdcard/my_ui_dump.xml .";
-  std::string result = ADB_MODE(shell);
-  if (result.find("UI hierarchy dumped") == std::string::npos && result.find("Success") == std::string::npos) {
-    std::cerr << "Dump thất bại: " << result << std::endl;
-    return "";
-  }
-  std::string result2 = ADB_MODE(pull);
-  if (result2.find("file pulled") == std::string::npos) {
-      std::cerr << "Pull thất bại: " << result2 << std::endl;
-      return "";
+  std::string pull_cmd = "-s " + devices + " pull /sdcard/my_ui_dump.xml .";
+  auto dump_res = ADB_MODE(shell);
+  std::string dump_out = dump_res.first;
+  int dump_exit = dump_res.second;
+  if (dump_exit != 0 || dump_out.find("UI hierarchy dumped") == std::string::npos && dump_out.find("Success") == std::string::npos) {
+        std::cerr << "Dump thất bại: " << dump_out << std::endl;
+        return dump_exit ? dump_exit : 1;  // trả exit_code hoặc 1 nếu fail im lặng
     }
-  return result2;
+   auto pull_res = ADB_MODE(pull_cmd);
+   std::string pull_out = pull_res.first;
+   int pull_exit = pull_res.second;
+   if (pull_exit != 0 || pull_out.find("file pulled") == std::string::npos) {
+        std::cerr << "Pull thất bại: " << pull_out << std::endl;
+        return pull_exit ? pull_exit : 1;
+    }
+  return 0;
 }
