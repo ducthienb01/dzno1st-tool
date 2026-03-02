@@ -152,6 +152,30 @@ src/Loadjob.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/Loadjob.cpp.s
 .PHONY : src/Loadjob.cpp.s
 
+src/Open_Cv.obj: src/Open_Cv.cpp.obj
+.PHONY : src/Open_Cv.obj
+
+# target to build an object file
+src/Open_Cv.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/Open_Cv.cpp.obj
+.PHONY : src/Open_Cv.cpp.obj
+
+src/Open_Cv.i: src/Open_Cv.cpp.i
+.PHONY : src/Open_Cv.i
+
+# target to preprocess a source file
+src/Open_Cv.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/Open_Cv.cpp.i
+.PHONY : src/Open_Cv.cpp.i
+
+src/Open_Cv.s: src/Open_Cv.cpp.s
+.PHONY : src/Open_Cv.s
+
+# target to generate assembly for a file
+src/Open_Cv.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/Open_Cv.cpp.s
+.PHONY : src/Open_Cv.cpp.s
+
 src/TDS.obj: src/TDS.cpp.obj
 .PHONY : src/TDS.obj
 
@@ -308,6 +332,9 @@ help:
 	@echo ... src/Loadjob.obj
 	@echo ... src/Loadjob.i
 	@echo ... src/Loadjob.s
+	@echo ... src/Open_Cv.obj
+	@echo ... src/Open_Cv.i
+	@echo ... src/Open_Cv.s
 	@echo ... src/TDS.obj
 	@echo ... src/TDS.i
 	@echo ... src/TDS.s

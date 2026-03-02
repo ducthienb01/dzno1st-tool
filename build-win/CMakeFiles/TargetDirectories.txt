@@ -1,3 +1,0 @@
-D:/C++/dzno1st-tool/build-win/CMakeFiles/main.dir
-D:/C++/dzno1st-tool/build-win/CMakeFiles/edit_cache.dir
-D:/C++/dzno1st-tool/build-win/CMakeFiles/rebuild_cache.dir

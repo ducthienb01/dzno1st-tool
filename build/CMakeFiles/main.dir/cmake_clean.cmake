@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/main.dir/src/Loadjob.cpp.obj"
   "CMakeFiles/main.dir/src/Loadjob.cpp.obj.d"
+  "CMakeFiles/main.dir/src/Open_Cv.cpp.obj"
+  "CMakeFiles/main.dir/src/Open_Cv.cpp.obj.d"
   "CMakeFiles/main.dir/src/TDS.cpp.obj"
   "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
   "CMakeFiles/main.dir/src/UI.cpp.obj"

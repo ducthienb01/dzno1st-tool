@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/C++/dzno1st-tool/src/Loadjob.cpp" "CMakeFiles/main.dir/src/Loadjob.cpp.obj" "gcc" "CMakeFiles/main.dir/src/Loadjob.cpp.obj.d"
+  "D:/C++/dzno1st-tool/src/Open_Cv.cpp" "CMakeFiles/main.dir/src/Open_Cv.cpp.obj" "gcc" "CMakeFiles/main.dir/src/Open_Cv.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/TDS.cpp" "CMakeFiles/main.dir/src/TDS.cpp.obj" "gcc" "CMakeFiles/main.dir/src/TDS.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/UI.cpp" "CMakeFiles/main.dir/src/UI.cpp.obj" "gcc" "CMakeFiles/main.dir/src/UI.cpp.obj.d"
   "D:/C++/dzno1st-tool/src/adb.cpp" "CMakeFiles/main.dir/src/adb.cpp.obj" "gcc" "CMakeFiles/main.dir/src/adb.cpp.obj.d"

@@ -176,6 +176,21 @@ CMakeFiles/main.dir/src/adb.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/adb.cpp.s"
 	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\C++\dzno1st-tool\src\adb.cpp -o CMakeFiles\main.dir\src\adb.cpp.s
 
+CMakeFiles/main.dir/src/Open_Cv.cpp.obj: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/src/Open_Cv.cpp.obj: CMakeFiles/main.dir/includes_CXX.rsp
+CMakeFiles/main.dir/src/Open_Cv.cpp.obj: D:/C++/dzno1st-tool/src/Open_Cv.cpp
+CMakeFiles/main.dir/src/Open_Cv.cpp.obj: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/main.dir/src/Open_Cv.cpp.obj"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/src/Open_Cv.cpp.obj -MF CMakeFiles\main.dir\src\Open_Cv.cpp.obj.d -o CMakeFiles\main.dir\src\Open_Cv.cpp.obj -c D:\C++\dzno1st-tool\src\Open_Cv.cpp
+
+CMakeFiles/main.dir/src/Open_Cv.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/main.dir/src/Open_Cv.cpp.i"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\C++\dzno1st-tool\src\Open_Cv.cpp > CMakeFiles\main.dir\src\Open_Cv.cpp.i
+
+CMakeFiles/main.dir/src/Open_Cv.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/main.dir/src/Open_Cv.cpp.s"
+	D:\mingw64\bin\c++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\C++\dzno1st-tool\src\Open_Cv.cpp -o CMakeFiles\main.dir\src\Open_Cv.cpp.s
+
 # Object files for target main
 main_OBJECTS = \
 "CMakeFiles/main.dir/src/main.cpp.obj" \
@@ -184,7 +199,8 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/src/Loadjob.cpp.obj" \
 "CMakeFiles/main.dir/src/UI.cpp.obj" \
 "CMakeFiles/main.dir/src/TDS.cpp.obj" \
-"CMakeFiles/main.dir/src/adb.cpp.obj"
+"CMakeFiles/main.dir/src/adb.cpp.obj" \
+"CMakeFiles/main.dir/src/Open_Cv.cpp.obj"
 
 # External object files for target main
 main_EXTERNAL_OBJECTS =
@@ -196,16 +212,20 @@ main.exe: CMakeFiles/main.dir/src/Loadjob.cpp.obj
 main.exe: CMakeFiles/main.dir/src/UI.cpp.obj
 main.exe: CMakeFiles/main.dir/src/TDS.cpp.obj
 main.exe: CMakeFiles/main.dir/src/adb.cpp.obj
+main.exe: CMakeFiles/main.dir/src/Open_Cv.cpp.obj
 main.exe: CMakeFiles/main.dir/build.make
-main.exe: vcpkg_installed/x64-windows/debug/lib/libcurl-d.lib
+main.exe: D:/vcpkg/installed/x64-mingw-dynamic/debug/lib/libcurl-d.dll.a
+main.exe: D:/vcpkg/installed/x64-mingw-dynamic/debug/lib/libprotobufd.dll.a
+main.exe: D:/vcpkg/installed/x64-mingw-dynamic/debug/lib/libutf8_validity.a
+main.exe: D:/vcpkg/installed/x64-mingw-dynamic/debug/lib/libabseil_dll.dll.a
 main.exe: CMakeFiles/main.dir/linkLibs.rsp
 main.exe: CMakeFiles/main.dir/objects1.rsp
 main.exe: CMakeFiles/main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable main.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=D:\C++\dzno1st-tool\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable main.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\main.dir\link.txt --verbose=$(VERBOSE)
-	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/C++/dzno1st-tool/build/main.exe -installedDir D:/C++/dzno1st-tool/build/vcpkg_installed/x64-windows/debug/bin -OutVariable out
+	C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file D:/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary D:/C++/dzno1st-tool/build/main.exe -installedDir D:/vcpkg/installed/x64-mingw-dynamic/bin -OutVariable out
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy libcurl.dll"
-	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/C++/dzno1st-tool/build/vcpkg_installed/x64-windows/bin/libcurl.dll D:/C++/dzno1st-tool/build
+	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/vcpkg/installed/x64-mingw-dynamic/bin/libcurl.dll D:/C++/dzno1st-tool/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy libgcc_s_seh-1.dll"
 	"C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different D:/mingw64/bin/libgcc_s_seh-1.dll D:/C++/dzno1st-tool/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copy libstdc++-6.dll"
