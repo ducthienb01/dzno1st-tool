@@ -195,9 +195,9 @@ std::vector<GolikeJob> INSTAGRAM::COMPLE(const int& ads_id, const int& account_i
     comple.push_back(i);
     return comple;
 }
-std::Vector<GolikeJob>INSTAGRAM::SKIP(const int& ads_id, const std::string& object_id, const int& account_id, const std::string& type) const {
+std::vector<GolikeJob> INSTAGRAM::SKIP() const {
     std::vector<GolikeJob> skip;
-    std::string url = "https://gateway.golike.net/api/advertising/publishers/tiktok/skip-jobs";
+    std::string url = "https://gateway.golike.net/api/advertising/publishers/instagram/skip-jobs";
     std::string body =
           "{"
           "\"ads_id\":"+std::to_string(ads_id) + ","
