@@ -53,6 +53,8 @@ class TIKTOK : public PlatformStrategy {
      std::vector<GolikeJob> GETJOB(long long account_id) const override;
      std::vector<GolikeJob> COMPLE(const int& ads_id, const int& account_id) const override;
      std::vector<GolikeJob> SKIP(const int& ads_id, const std::string& object_id, const int& account_id, const std::string& type) const override;
+     int FOLLOW() const;
+     int LIKE() const;
 };
 class INSTAGRAM : public PlatformStrategy {
     private:

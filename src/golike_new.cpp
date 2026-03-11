@@ -4,6 +4,8 @@
 #include <thread>
 #include <chrono>
 #include <curl/curl.h>
+#include "../header/adb.h"
+#include <regex>
 static size_t Write_cb(char* contents,size_t size, size_t nnemb, std::string* userp) {
     userp -> append(contents,size * nnemb);
     return size * nnemb;
@@ -115,6 +117,41 @@ std::vector<GolikeJob> TIKTOK::SKIP(const int& ads_id, const std::string& object
     i.message = j.value("message", "");
     skip.push_back(i);
     return skip;
+}
+int TIKTOK::FOLLOW() const {
+    ADB adb;
+    auto dump = adb.ADB_DUMP();
+    if (dump != 0) {
+      std::cerr << "DUMP FALSE" << std::endl;
+      return 1;
+    }
+    std::ifstream file("my_ui_dump.xml");
+    std::string xml((std::istreambuf_iterator<char>(file)),std::istreambuf_iterator<char>());
+    if (xml.find("Following") != std::string::npos) {
+        std::cout << "Already followed\n";
+        return 0;
+    }
+    std::regex follow_regex(R"(Follow.*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]")");
+    std::smatch match;
+    if (std::regex_search(xml, match, follow_regex)) {
+        int x1 = std::stoi(match[1]);
+        int y1 = std::stoi(match[2]);
+        int x2 = std::stoi(match[3]);
+        int y2 = std::stoi(match[4]);
+
+        int x = (x1+x2)/2;
+        int y = (y1+y2)/2;
+        adb.TAP(x,y);
+    }
+    return 0;
+}
+int TIKTOK::LIKE() const {
+    ADB adb;
+    int width = 1080;
+    int height = 1920;
+    int x = width * 0.92;
+    int y = height * 0.50;
+    auto like = adb.ADB_CLICK(x, y); 
 }
 INSTAGRAM::INSTAGRAM(const GolikeClient& c) : client(c) {};
 INSTAGRAM::~INSTAGRAM() {};
