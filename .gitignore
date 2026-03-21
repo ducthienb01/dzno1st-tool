@@ -1,0 +1,6 @@
+build/
+*.exe
+*.dll
+*.pyd
+Lib/
+site-packages/

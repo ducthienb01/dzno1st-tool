@@ -1,0 +1,9 @@
+{
+  "name": "dzno1st-tool",
+  "version-string": "1.0.0",
+  "dependencies": [
+    "curl",
+    "opencv",
+    "protobuf"
+  ]
+}
