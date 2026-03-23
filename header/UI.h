@@ -3,7 +3,8 @@
 #include <iostream>
 #include "../header/golikenew.h"
 void show_authorization_input(std::string& authorization);
-void show_welcome_and_account_info(const GolikeClient& client);
-std::string choose_platform();
-void show_account(Golike& g,std::string& choice,long long& select,std::string& name,std::string& cookies);
+std::string show_welcome_and_account_info(const GolikeClient& client);
+std::string input_cookie(const std::string& name);
+void handle_account(GolikeClient& g, int& account_id, std::string& account_name, std::string& cookie_out);
+void AUTO_JOB(const GolikeClient& client);
 #endif

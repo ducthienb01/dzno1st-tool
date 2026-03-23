@@ -6,9 +6,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 import json
-
-def create_driver():
+import time
+def create_driver(profile_directory):
     options = Options()
+    options.add_argument(r"--user-data-dir=C:\AutomationChrome")
+    options.add_argument(f"--profile-directory={profile_directory}")
     options.add_argument("--headless=new")
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
@@ -26,33 +28,67 @@ def create_driver():
     return webdriver.Chrome(options=options)
 
 def get_doc_id(driver):
-    logs = driver.get_log("performance")
-    for log in logs:
-        message = json.loads(log["message"])["message"]
-        if message["method"] == "Network.requestWillBeSent":
-            request = message["params"]["request"]
-            if "graphql" in request["url"]:
-                postData = request.get("postData", "")
-                doc_match = re.search(r'"doc_id":"(\d+)"', postData)
-                if doc_match:
-                    return doc_match.group(1)
+    WebDriverWait(driver, 20).until(
+        EC.any_of(
+            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="UFI2Comment/actionLink"]')),
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+    )
+    time.sleep(4)
+    
+    doc_id = None
+    max_attempts = 12
+    
+    for _ in range(max_attempts):
+        logs = driver.get_log("performance")
+        for log in logs:
+            try:
+                msg = json.loads(log["message"])["message"]
+                if msg.get("method") == "Network.requestWillBeSent":
+                    params = msg["params"]
+                    request = params["request"]
+                    if request["method"] == "POST" and "/api/graphql/" in request["url"]:
+                        request_id = params["requestId"]
+                        try:
+                            post_data_cmd = driver.execute_cdp_cmd(
+                                "Network.getRequestPostData",
+                                {"requestId": request_id}
+                            )
+                            payload = post_data_cmd.get("postData", "")
+                            if payload:
+                                match = re.search(r'"doc_id"\s*:\s*"(\d+)"', payload)
+                                if match:
+                                    return match.group(1)
+                                
+                                # Regex dự phòng nếu format hơi khác
+                                alt_match = re.search(r'doc_id["\']?[:=]\s*["\']?(\d+)', payload)
+                                if alt_match:
+                                    return alt_match.group(1)
+                        except:
+                            pass
+            except json.JSONDecodeError:
+                continue
+        time.sleep(1)
     return None
-
-def get_feedback(url: str) -> tuple:
+def get_feedback(url: str,profile_directory:str) -> tuple:
     """
     Trả về (feedback_id, doc_id) cho action 'like'
     Nếu không tìm thấy thì trả về ("not_found", "not_found") hoặc ("", "")
     """
-    driver = create_driver()
+    driver = create_driver(profile_directory)
     try:
         driver.get(url)
-        WebDriverWait(driver, 6).until(
-            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        WebDriverWait(driver, 20).until(
+        EC.any_of(  # Dùng any_of để linh hoạt
+            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="UFI2Comment/actionLink"]')),
+            EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="ufi_like_link"]')),  # like button cũ/mới
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'div[role="button"][aria-label*="Like"]')),  # aria-label like
+            EC.presence_of_element_located((By.TAG_NAME, "body"))  # fallback cơ bản nếu không có UFI
+        )
         )
         html = driver.page_source
-        
         feedback_id = None
-        match = re.search(r'"total_comment_count":\d+.*?"id":"([^"]+)"', html)
+        match = re.search(r'"feedback":{"associated_group":null,"id":"([^"]+)"', html)
         if match:
             feedback_id = match.group(1)
         elif (match := re.search(r'associated_group":null,"recruiting_group_unencoded_id":null,"id":"([^"]+)"', html)):
@@ -73,14 +109,14 @@ def get_feedback(url: str) -> tuple:
     finally:
         driver.quit()
 
-def get_target(url: str) -> tuple:
+def get_target(url: str,profile_directory:str) -> tuple:
     """
     Trả về (target_id, doc_id) cho action 'follow'
     """
-    driver = create_driver()
+    driver = create_driver(profile_directory)
     try:
         driver.get(url)
-        WebDriverWait(driver, 6).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.TAG_NAME, "body"))
         )
         html = driver.page_source

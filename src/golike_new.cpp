@@ -13,14 +13,14 @@
 #include <memory>
 #include <pybind11/embed.h>
 #include <utility>
+#include <tuple>
 static size_t Write_cb(void* contents, size_t size, size_t nnemb, void* userp) {
   ((std::string*)(userp))->append((char*)(contents), size * nnemb);
   return size * nnemb;
 };
 namespace py = pybind11;
 using json = nlohmann::json;
-GolikeClient::GolikeClient(const std::string& token,const std::string& platform,const std::string& cookie,const std::string& type) {
-  if(platform == "golike") {
+GolikeClient::GolikeClient(const std::string& token) {
     headers = NULL;
     headers = curl_slist_append(headers, "accept: application/json, text/plain, */*");
     headers = curl_slist_append(headers, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
@@ -37,72 +37,6 @@ GolikeClient::GolikeClient(const std::string& token,const std::string& platform,
     headers = curl_slist_append(headers, "sec-fetch-site: same-site");
     headers = curl_slist_append(headers, "t: VFZSak0wMTZVVFZOZWtsNVQxRTlQUT09");
     headers = curl_slist_append(headers, "user-agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Mobile Safari/537.36");
-    }
-  else if (platform == "instagram") {
-    if (!cookie.empty()) {
-    headers = NULL;
-    headers = curl_slist_append(headers, "accept: */*");
-    headers = curl_slist_append(headers, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
-    headers = curl_slist_append(headers, "content-type: application/x-www-form-urlencoded");
-    headers = curl_slist_append(headers, "origin: https://www.instagram.com");
-    headers = curl_slist_append(headers, "priority: u=1, i");
-    headers = curl_slist_append(headers, "sec-ch-prefers-color-scheme: light");
-    headers = curl_slist_append(headers, "sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-full-version-list: \"Chromium\";v=\"146.0.7680.80\", \"Not-A.Brand\";v=\"24.0.0.0\", \"Google Chrome\";v=\"146.0.7680.80\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-mobile: ?0");
-    headers = curl_slist_append(headers, "sec-ch-ua-model: \"\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform: \"Windows\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform-version: \"10.0.0\"");
-    headers = curl_slist_append(headers, "sec-fetch-dest: empty");
-    headers = curl_slist_append(headers, "sec-fetch-mode: cors");
-    headers = curl_slist_append(headers, "sec-fetch-site: same-origin");
-    headers = curl_slist_append(headers, "x-asbd-id: 359341");
-    headers = curl_slist_append(headers, "x-bloks-version-id: 61fc9465e13b77eaa110f317859102ba7fb93a0a2bcc08c46473da6713640739");
-    std::string csrftoken;
-    size_t start = cookie.find("csrftoken=");
-    if (start != std::string::npos) {
-        start += 10; 
-        size_t end = cookie.find(";", start);
-        csrftoken = cookie.substr(start, end - start);
-    }
-    if (!csrftoken.empty()) {
-        std::string csrftokenn = "x-csrftoken: " + csrftoken;
-        headers = curl_slist_append(headers, csrftokenn.c_str());
-    }
-    headers = curl_slist_append(headers, "x-fb-lsd: i86AlZ_H15GNJCoDaCpxaZ");
-    headers = curl_slist_append(headers, "x-ig-app-id: 936619743392459");
-    headers = curl_slist_append(headers, (type == "like" ? "x-fb-friendly-name: usePolarisLikeMediaLikeMutation" : "x-fb-friendly-name: usePolarisFollowMutation"));
-    headers = curl_slist_append(headers,(type == "like" ? "x-root-field-name: xdt_mark_media_like" : "x-root-field-name: xdt_create_friendship" ));
-    std::string cookiess = "cookie: " + cookie;
-    headers = curl_slist_append(headers,cookiess.c_str());
-    }
-  }
-  else if (platform == "facebook") {
-    if (!cookie.empty()) {
-    headers = NULL;
-    headers = curl_slist_append(headers, "accept: */*");
-    headers = curl_slist_append(headers, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
-    headers = curl_slist_append(headers, "content-type: application/x-www-form-urlencoded");
-    headers = curl_slist_append(headers, "origin: https://www.facebook.com");
-    headers = curl_slist_append(headers, "priority: u=1, i");
-    headers = curl_slist_append(headers, "sec-ch-prefers-color-scheme: light");
-    headers = curl_slist_append(headers, "sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-full-version-list: \"Chromium\";v=\"146.0.7680.80\", \"Not-A.Brand\";v=\"24.0.0.0\", \"Google Chrome\";v=\"146.0.7680.80\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-mobile: ?0");
-    headers = curl_slist_append(headers, "sec-ch-ua-model: \"\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform: \"Windows\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform-version: \"10.0.0\"");
-    headers = curl_slist_append(headers, "sec-fetch-dest: empty");
-    headers = curl_slist_append(headers, "sec-fetch-mode: cors");
-    headers = curl_slist_append(headers, "sec-fetch-site: same-origin");
-    headers = curl_slist_append(headers, "x-asbd-id: 359341");
-    headers = curl_slist_append(headers, "x-fb-friendly-name: CometUFIFeedbackReactMutation");
-    headers = curl_slist_append(headers, "x-fb-lsd: FIb0UfMX0imoS6HFrHtCKo");
-    headers = curl_slist_append(headers, "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36");
-    std::string cookiess = "cookie: " + cookie;
-    headers = curl_slist_append(headers,cookiess.c_str());
-        }
-    }
     curl = curl_easy_init();
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10L);
@@ -112,8 +46,7 @@ GolikeClient::GolikeClient(const std::string& token,const std::string& platform,
     curl_easy_setopt(curl, CURLOPT_TIMEOUT, 5L);
     curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 5L);
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
-    curl_easy_setopt(curl, CURLOPT_USERAGENT,
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+    curl_easy_setopt(curl, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
 }
 GolikeClient::~GolikeClient() {
   if (headers) curl_slist_free_all(headers);
@@ -123,7 +56,7 @@ GolikeClient::~GolikeClient() {
 std::string GolikeClient::performRequest (const std::string& url,const std::string& method,const std::string& postData) const {
     std::string response;
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER,headers);
     curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,Write_cb);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
     if (method == "POST"){
@@ -141,7 +74,7 @@ GolikeJob GolikeClient::ME() const {
     std::string url = "https://gateway.golike.net/api/users/me";
     std::string raw = performRequest(url);
     json j = json::parse(raw);
-    auto d = j["data"];
+    auto d = j["data"]; 
     GolikeJob job;
     job.id = d.value("id", 0);
     job.name = d.value("name", "");
@@ -299,7 +232,56 @@ int TIKTOK::LIKE(const std::string& devices) const {
 //         }
 //     }
 // }
-INSTAGRAM::INSTAGRAM(const GolikeClient& c) : client(c) {};
+INSTAGRAM::INSTAGRAM(const GolikeClient& c,const std::string& cookie) : client(c) {
+    headers = NULL;
+    headers = curl_slist_append(headers, "accept: */*");
+    headers = curl_slist_append(headers, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
+    headers = curl_slist_append(headers, "content-type: application/x-www-form-urlencoded");
+    headers = curl_slist_append(headers, "origin: https://www.instagram.com");
+    headers = curl_slist_append(headers, "priority: u=1, i");
+    headers = curl_slist_append(headers, "sec-ch-prefers-color-scheme: light");
+    headers = curl_slist_append(headers, "sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"");
+    headers = curl_slist_append(headers, "sec-ch-ua-full-version-list: \"Chromium\";v=\"146.0.7680.80\", \"Not-A.Brand\";v=\"24.0.0.0\", \"Google Chrome\";v=\"146.0.7680.80\"");
+    headers = curl_slist_append(headers, "sec-ch-ua-mobile: ?0");
+    headers = curl_slist_append(headers, "sec-ch-ua-model: \"\"");
+    headers = curl_slist_append(headers, "sec-ch-ua-platform: \"Windows\"");
+    headers = curl_slist_append(headers, "sec-ch-ua-platform-version: \"10.0.0\"");
+    headers = curl_slist_append(headers, "sec-fetch-dest: empty");
+    headers = curl_slist_append(headers, "sec-fetch-mode: cors");
+    headers = curl_slist_append(headers, "sec-fetch-site: same-origin");
+    headers = curl_slist_append(headers, "x-asbd-id: 359341");
+    headers = curl_slist_append(headers, "x-bloks-version-id: 61fc9465e13b77eaa110f317859102ba7fb93a0a2bcc08c46473da6713640739");
+    curl = curl_easy_init();
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10L);
+    curl_easy_setopt(curl, CURLOPT_TCP_KEEPALIVE, 1L);
+    curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "");
+    curl_easy_setopt(curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+    curl_easy_setopt(curl, CURLOPT_TIMEOUT, 5L);
+    curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 5L);
+    curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1L);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+};
+INSTAGRAM::~INSTAGRAM() {
+    if(headers) {
+      curl_slist_free_all(headers);
+      headers = NULL;
+    }
+    if (curl) curl_easy_cleanup(curl);
+}
+std::string INSTAGRAM::requestAPI(const std::string& url,const std::string& body) const {
+    std::string response;
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl,CURLOPT_POST,1L);
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
+    curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, static_cast<long>(body.size()));
+    curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION,Write_cb);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+    CURLcode res = curl_easy_perform(curl);
+    if (res != CURLE_OK) throw std::runtime_error(curl_easy_strerror(res));
+    return response;
+}
 std::pair<std::string,std::string> INSTAGRAM::GET_DATA() const {
     std::string url = "https://www.instagram.com/";
     std::string raw = client.performRequest(url);
@@ -375,7 +357,7 @@ std::vector<GolikeJob> INSTAGRAM::SKIP(const int& ads_id, const std::string& obj
     skip.push_back(i);
     return skip;
 }
-std::string INSTAGRAM::LIKE(const std::string& av_id, const std::string& dtsg, const std::string& media_id) const {
+std::string INSTAGRAM::LIKE(const std::string& av_id, const std::string& dtsg, const std::string& media_id,const std::string& cookie, std::string type) const {
     char* escaped_dtsg = curl_easy_escape(NULL,dtsg.c_str(),static_cast<int>(dtsg.length()));
     std::string variable = "{\"media_id\":\"" + media_id + "\","
                             "\"container_module\":\"single_post\"}";
@@ -391,7 +373,24 @@ std::string INSTAGRAM::LIKE(const std::string& av_id, const std::string& dtsg, c
     curl_free(escaped_dtsg);
     curl_free(escaped_variables);
     std::string url = "https://www.instagram.com/graphql/query";
-    std::string raw = client.performRequest(url, "POST", body);
+    std::string csrftoken;
+    size_t start = cookie.find("csrftoken=");
+    if (start != std::string::npos) {
+        start += 10; 
+        size_t end = cookie.find(";", start);
+        csrftoken = cookie.substr(start, end - start);
+    }
+    if (!csrftoken.empty()) {
+        std::string csrftokenn = "x-csrftoken: " + csrftoken;
+        headers = curl_slist_append(headers, csrftokenn.c_str());
+    }
+    headers = curl_slist_append(headers, "x-fb-lsd: i86AlZ_H15GNJCoDaCpxaZ");
+    headers = curl_slist_append(headers, "x-ig-app-id: 936619743392459");
+    std::string cookiess = "cookie: " + cookie;
+    headers = curl_slist_append(headers,cookiess.c_str());
+    headers = curl_slist_append(headers, (type == "like" ? "x-fb-friendly-name: usePolarisLikeMediaLikeMutation" : "x-fb-friendly-name: usePolarisFollowMutation"));
+    headers = curl_slist_append(headers,(type == "like" ? "x-root-field-name: xdt_mark_media_like" : "x-root-field-name: xdt_create_friendship" ));
+    std::string raw = requestAPI(url, body);
     try {
         json d = json::parse(raw);
         if (d.is_null()) return "";
@@ -402,7 +401,7 @@ std::string INSTAGRAM::LIKE(const std::string& av_id, const std::string& dtsg, c
     }
     return "";
 }
-std::string INSTAGRAM::FOLLOW(const std::string& target_id, const std::string& av_id, const std::string& dtsg) const {
+std::string INSTAGRAM::FOLLOW(const std::string& target_id, const std::string& av_id, const std::string& dtsg,const std::string& cookie, std::string type) const {
     char* escaped_dtsg = curl_easy_escape(NULL, dtsg.c_str(), static_cast<int>(dtsg.length()));
     std::string variable =
         "{\"target_user_id\":\"" + target_id + "\","
@@ -418,7 +417,24 @@ std::string INSTAGRAM::FOLLOW(const std::string& target_id, const std::string& a
         "variables=" + escaped_variable + "&"
         "doc_id=9740159112729312";
     std::string url = "https://www.instagram.com/graphql/query";
-    std::string raw = client.performRequest(url, "POST", body);
+    std::string csrftoken;
+    size_t start = cookie.find("csrftoken=");
+    if (start != std::string::npos) {
+        start += 10; 
+        size_t end = cookie.find(";", start);
+        csrftoken = cookie.substr(start, end - start);
+    }
+    if (!csrftoken.empty()) {
+        std::string csrftokenn = "x-csrftoken: " + csrftoken;
+        headers = curl_slist_append(headers, csrftokenn.c_str());
+    }
+    headers = curl_slist_append(headers, "x-fb-lsd: i86AlZ_H15GNJCoDaCpxaZ");
+    headers = curl_slist_append(headers, "x-ig-app-id: 936619743392459");
+    std::string cookiess = "cookie: " + cookie;
+    headers = curl_slist_append(headers,cookiess.c_str());
+    headers = curl_slist_append(headers, (type == "like" ? "x-fb-friendly-name: usePolarisLikeMediaLikeMutation" : "x-fb-friendly-name: usePolarisFollowMutation"));
+    headers = curl_slist_append(headers,(type == "like" ? "x-root-field-name: xdt_mark_media_like" : "x-root-field-name: xdt_create_friendship" ));
+    std::string raw = requestAPI(url, body);
     try {
         json d = json::parse(raw);
         if (d.contains("errors") && d["errors"].is_array() && !d["errors"].empty()) {
@@ -436,40 +452,40 @@ std::string INSTAGRAM::FOLLOW(const std::string& target_id, const std::string& a
     return "";
 }
 FACEBOOK::FACEBOOK(const GolikeClient& c) : client(c) {};
-std::pair<std::string,std::string>FACEBOOK::GET_DATA (const std::string& cookies) const {
-    struct curl_slist* headers = NULL;
-    headers = NULL;
-    headers = curl_slist_append(headers, "accept: text/html");
-    headers = curl_slist_append(headers, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
-    headers = curl_slist_append(headers, "priority: u=1, i");
-    headers = curl_slist_append(headers, "sec-ch-prefers-color-scheme: light");
-    headers = curl_slist_append(headers, "sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-full-version-list: \"Chromium\";v=\"146.0.7680.80\", \"Not-A.Brand\";v=\"24.0.0.0\", \"Google Chrome\";v=\"146.0.7680.80\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-mobile: ?0");
-    headers = curl_slist_append(headers, "sec-ch-ua-model: \"\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform: \"Windows\"");
-    headers = curl_slist_append(headers, "sec-ch-ua-platform-version: \"10.0.0\"");
-    headers = curl_slist_append(headers, "sec-fetch-dest: empty");
-    headers = curl_slist_append(headers, "sec-fetch-mode: cors");
-    headers = curl_slist_append(headers, "sec-fetch-site: same-origin");
-    headers = curl_slist_append(headers, "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36");
+std::tuple<std::string,std::string,std::string>FACEBOOK::GET_DATA (const std::string& cookies) const {
+    struct curl_slist* headers2 = NULL;
+    headers2 = NULL;
+    headers2 = curl_slist_append(headers2, "accept: text/html");
+    headers2 = curl_slist_append(headers2, "accept-language: vi-VN,vi;q=0.9,fr-FR;q=0.8,fr;q=0.7,en-US;q=0.6,en;q=0.5");
+    headers2 = curl_slist_append(headers2, "priority: u=1, i");
+    headers2 = curl_slist_append(headers2, "sec-ch-prefers-color-scheme: light");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua: \"Chromium\";v=\"146\", \"Not-A.Brand\";v=\"24\", \"Google Chrome\";v=\"146\"");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua-full-version-list: \"Chromium\";v=\"146.0.7680.80\", \"Not-A.Brand\";v=\"24.0.0.0\", \"Google Chrome\";v=\"146.0.7680.80\"");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua-mobile: ?0");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua-model: \"\"");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua-platform: \"Windows\"");
+    headers2 = curl_slist_append(headers2, "sec-ch-ua-platform-version: \"10.0.0\"");
+    headers2 = curl_slist_append(headers2, "sec-fetch-dest: empty");
+    headers2 = curl_slist_append(headers2, "sec-fetch-mode: cors");
+    headers2 = curl_slist_append(headers2, "sec-fetch-site: same-origin");
+    headers2 = curl_slist_append(headers2, "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36");
     std::string cookiess = "cookie: " + cookies;
-    headers = curl_slist_append(headers,cookiess.c_str());
+    headers2 = curl_slist_append(headers2,cookiess.c_str());
     CURL* curl = curl_easy_init();
-    if (!curl) return {"",""};
+    if (!curl) return {"","",""};
     std::string response;
     curl_easy_setopt(curl,CURLOPT_URL,"https://www.facebook.com/");
-    curl_easy_setopt(curl,CURLOPT_HTTPHEADER,headers);
+    curl_easy_setopt(curl,CURLOPT_HTTPHEADER,headers2);
     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, Write_cb);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
     CURLcode res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
       std::cerr << "API ERROR" << std::endl;
-      return {"", ""};
+      return {"", "",""};
     }
-    curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
-    std::string avID, Dtsg;
+    curl_slist_free_all(headers2);
+    std::string avID, Dtsg, session_id;
     std::regex av("\"accountId\":\"([^\"]+)\"");
     std::smatch match;
     if (std::regex_search(response, match, av)) {
@@ -480,7 +496,13 @@ std::pair<std::string,std::string>FACEBOOK::GET_DATA (const std::string& cookies
     if (std::regex_search(response, match2, tokenRegex)) {
         Dtsg = match2[1];
     }
-    return { avID, Dtsg };
+    std::regex session(R"("context":"\{\\"session_id\\":\\"([^"]+))");
+    std::smatch match3;
+    if (std::regex_search(response,match3,session)) {
+      session_id = match3[1];
+      session_id.erase(std::remove(session_id.begin(), session_id.end(), '\\'), session_id.end());
+    }
+    return { avID, Dtsg ,session_id};
 }
 std::vector<GolikeJob> FACEBOOK::ACCOUNT() const {
     std::string url = "https://gateway.golike.net/api/fb-account?limit=200";
@@ -525,7 +547,7 @@ std::vector<GolikeJob> FACEBOOK::COMPLE(const int& ads_id,const int& account_id,
         "\"users_advertising_id\":" + std::to_string(ads_id) + ","
         "\"message\":null"
         "}";
-    std::string raw = client.performRequest(url, "POST", body);
+    std::string raw = client.performRequest(url,"POST", body);
     json j = json::parse(raw);
     std::vector<GolikeJob> comple;
     GolikeJob i;
@@ -551,7 +573,7 @@ std::vector<GolikeJob> FACEBOOK::SKIP(const int& ads_id, const std::string& obje
     mess.push_back({.message = d["skip"]["msg"]});
     return mess;
 }
-std::pair<std::string, std::string> FACEBOOK::Feedback_ID(const std::string& url, const std::string& action) const {
+std::pair<std::string, std::string> FACEBOOK::Feedback_ID(const std::string& url, const std::string& action,const std::string& profile) const {
     try { 
         py::module_ sys = py::module_::import("sys");
         sys.attr("path").attr("append")("D:/C++/dzno1st-tool/src");
@@ -559,7 +581,7 @@ std::pair<std::string, std::string> FACEBOOK::Feedback_ID(const std::string& url
         std::string func_name = (action == "like") ? "get_feedback" : 
                                     (action == "follow") ? "get_target" : 
                                     throw std::invalid_argument("Action không hợp lệ");
-        py::tuple result = mod.attr(func_name.c_str())(url).cast<py::tuple>();
+        py::tuple result = mod.attr(func_name.c_str())(url,profile).cast<py::tuple>();
         std::string id1 = result[0].cast<std::string>();
         std::string id2 = result[1].cast<std::string>();
         return {id1, id2};
@@ -573,9 +595,9 @@ std::pair<std::string, std::string> FACEBOOK::Feedback_ID(const std::string& url
         return {"error", e.what()};
     }
 }
-std::string FACEBOOK::LIKE(const std::string& url,const std::string& reaction,const std::string& actor_ID,const std::string& cookie) const {
+std::string FACEBOOK::LIKE(const std::string& url,const std::string& reaction,const std::string& cookie,const std::string& profile) const {
     auto data = GET_DATA(cookie);
-    auto media = Feedback_ID(url,"like");
+    auto media = Feedback_ID(url,"like",profile);
     static const std::unordered_map<std::string, std::string> reactionMap = {
         {"like", "1635855486666999"},{"like_page","1635855486666999"}, {"love", "1678524932434102"}, {"care", "613557422527858"}, {"haha", "115940658764963"}, {"wow", "478547315650144"}, {"sad", "908563459236466"}, {"angry", "444813342392137"},
     };
@@ -585,7 +607,7 @@ std::string FACEBOOK::LIKE(const std::string& url,const std::string& reaction,co
     std::string reaction_id = it->second;
     try {
        static py::object like_func = py::module_::import("mission").attr("like");
-        std::string result = like_func(cookie,data.first,data.second,media.first,reaction_id,actor_ID,media.second).cast<std::string>();
+        std::string result = like_func(cookie,std::get<0>(data),std::get<1>(data),media.first,reaction_id,std::get<2>(data)).cast<std::string>();
         return result;
     }
     catch(const py::error_already_set& e){
@@ -593,12 +615,12 @@ std::string FACEBOOK::LIKE(const std::string& url,const std::string& reaction,co
         return "python_error";
     }
 }
-std::string FACEBOOK::FOLLOW(const std::string& url,const std::string& actor_ID,const std::string& cookie) const {
+std::string FACEBOOK::FOLLOW(const std::string& url,const std::string& cookie,const std::string& profile) const {
   auto data = GET_DATA(cookie);
-  auto target = Feedback_ID(url,"follow");
+  auto target = Feedback_ID(url,"follow",profile);
   try {
     static py::object follow_func = py::module_::import("mission").attr("follow");
-    std::string result = follow_func(cookie,data.first,data.second,target.first,actor_ID,target.second).cast<std::string>();
+    std::string result = follow_func(cookie,std::get<0>(data),std::get<1>(data),target.first).cast<std::string>();
     return result;
   }catch(const py::error_already_set& e) {
     std::cerr << e.what() << std::endl;
